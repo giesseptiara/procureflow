@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ProcureFlow.dto.CreateDepartmentRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 
 @RestController
@@ -21,5 +25,12 @@ public class DepartmentController {
     @GetMapping
     public List<Department> getAllDepartments() {
         return departmentService.getAllDepartments();
+    }
+
+    @PostMapping
+    public Department createDepartment(
+            @RequestBody CreateDepartmentRequest request) {
+
+        return departmentService.createDepartment(request);
     }
 }

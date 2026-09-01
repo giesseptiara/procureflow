@@ -3,6 +3,7 @@ package ProcureFlow.service;
 import ProcureFlow.entity.Department;
 import ProcureFlow.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
+import ProcureFlow.dto.CreateDepartmentRequest;
 
 import java.util.List;
 
@@ -18,4 +19,10 @@ public class DepartmentService {
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }
+
+    public Department createDepartment(CreateDepartmentRequest request) {
+    Department department = new Department(request.getName());
+
+    return departmentRepository.save(department);
+}
 }
