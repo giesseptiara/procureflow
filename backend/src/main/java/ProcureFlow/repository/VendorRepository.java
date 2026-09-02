@@ -1,9 +1,9 @@
 package ProcureFlow.repository;
 
-import ProcureFlow.entity.Department;
+import ProcureFlow.entity.Vendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+public interface VendorRepository extends JpaRepository<Vendor, Long> {
 
     boolean existsByNameIgnoreCase(String name);
 }
