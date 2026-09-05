@@ -13,6 +13,9 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, length = 20)
+    private String poNumber;
+
     @OneToOne
     @JoinColumn(name = "quotation_id", nullable = false, unique = true)
     private Quotation quotation;
@@ -50,6 +53,10 @@ public class PurchaseOrder {
         return id;
     }
 
+    public String getPoNumber() {
+        return poNumber;
+    }
+
     public Quotation getQuotation() {
         return quotation;
     }
@@ -68,6 +75,10 @@ public class PurchaseOrder {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setPoNumber(String poNumber) {
+        this.poNumber = poNumber;
     }
 
     public void setQuotation(Quotation quotation) {

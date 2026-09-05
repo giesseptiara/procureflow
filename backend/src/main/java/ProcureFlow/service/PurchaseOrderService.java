@@ -56,13 +56,19 @@ public class PurchaseOrderService {
         }
 
         // 4. Buat PO
-        PurchaseOrder purchaseOrder = new PurchaseOrder(
+       PurchaseOrder purchaseOrder = new PurchaseOrder(
                 quotation,
                 quotation.getVendor(),
                 quotation.getOfferedPrice()
         );
 
-        // 5. PO pertama kali dibuat sebagai DRAFT
+        String poNumber = String.format(
+                "PO-%d-%04d",
+                java.time.LocalDate.now().getYear(),
+                purchaseOrderRepository.count() + 1
+        );
+
+        purchaseOrder.setPoNumber(poNumber);
         purchaseOrder.setStatus(PurchaseOrderStatus.DRAFT);
 
         return purchaseOrderRepository.save(purchaseOrder);
