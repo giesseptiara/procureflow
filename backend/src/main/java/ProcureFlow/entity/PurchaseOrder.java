@@ -3,6 +3,7 @@ package ProcureFlow.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,6 +34,9 @@ public class PurchaseOrder {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column
+    private LocalDate expectedDeliveryDate;
 
     public PurchaseOrder() {
     }
@@ -77,6 +81,10 @@ public class PurchaseOrder {
         return createdAt;
     }
 
+    public LocalDate getExpectedDeliveryDate() {
+        return expectedDeliveryDate;
+    }
+
     public void setPoNumber(String poNumber) {
         this.poNumber = poNumber;
     }
@@ -95,5 +103,9 @@ public class PurchaseOrder {
 
     public void setStatus(PurchaseOrderStatus status) {
         this.status = status;
+    }
+
+    public void setExpectedDeliveryDate(LocalDate expectedDeliveryDate) {
+        this.expectedDeliveryDate = expectedDeliveryDate;
     }
 }

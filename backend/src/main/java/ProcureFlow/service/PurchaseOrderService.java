@@ -71,6 +71,10 @@ public class PurchaseOrderService {
         purchaseOrder.setPoNumber(poNumber);
         purchaseOrder.setStatus(PurchaseOrderStatus.DRAFT);
 
+        purchaseOrder.setExpectedDeliveryDate(
+                java.time.LocalDate.now().plusDays(14)
+        );
+
         return purchaseOrderRepository.save(purchaseOrder);
     }
 

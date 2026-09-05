@@ -12,9 +12,7 @@ public class PurchaseOrderController {
 
     private final PurchaseOrderService purchaseOrderService;
 
-    public PurchaseOrderController(
-            PurchaseOrderService purchaseOrderService
-    ) {
+    public PurchaseOrderController(PurchaseOrderService purchaseOrderService) {
         this.purchaseOrderService = purchaseOrderService;
     }
 
@@ -42,5 +40,12 @@ public class PurchaseOrderController {
             @PathVariable Long id
     ) {
         return purchaseOrderService.completePurchaseOrder(id);
+    }
+
+    @PutMapping("/{id}/cancel")
+    public PurchaseOrder cancelPurchaseOrder(
+            @PathVariable Long id
+    ) {
+        return purchaseOrderService.cancelPurchaseOrder(id);
     }
 }
