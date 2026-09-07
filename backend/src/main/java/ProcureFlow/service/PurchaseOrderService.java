@@ -106,12 +106,12 @@ public class PurchaseOrderService {
                         "Purchase order not found"
                 ));
 
-        if (purchaseOrder.getStatus() != PurchaseOrderStatus.ISSUED) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "Only issued purchase orders can be completed"
-            );
-        }
+        if (purchaseOrder.getStatus() != PurchaseOrderStatus.RECEIVED) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT,
+                        "Only received purchase orders can be completed"
+                );
+                }
 
         purchaseOrder.setStatus(PurchaseOrderStatus.COMPLETED);
 
