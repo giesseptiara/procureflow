@@ -1,29 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Api } from './core/services/api';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-
-  protected readonly title = signal('ProcureFlow');
-
-  departments: any[] = [];
-
-  constructor(private api: Api) {}
-
-  ngOnInit() {
-    this.api.getDepartments().subscribe({
-      next: (data: any) => {
-        this.departments = data;
-      },
-      error: (error) => {
-        console.error('API Error:', error);
-      }
-    });
-  }
-}
+export class App {}

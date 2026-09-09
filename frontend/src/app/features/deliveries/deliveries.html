@@ -1,0 +1,76 @@
+<div class="deliveries">
+
+  <div class="page-header">
+    <div>
+      <h1>Deliveries</h1>
+      <p>Track received items and purchase order deliveries</p>
+    </div>
+
+    <button class="btn-primary">
+      + Record Delivery
+    </button>
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Purchase Order</th>
+          <th>Received Quantity</th>
+          <th>Received Date</th>
+          <th>Condition</th>
+          <th>Notes</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (delivery of deliveries(); track delivery.id) {
+          <tr>
+
+            <td>#{{ delivery.id }}</td>
+
+            <td>
+              <strong>
+                {{ delivery.purchaseOrder?.poNumber }}
+              </strong>
+            </td>
+
+            <td>
+              {{ delivery.receivedQuantity }}
+            </td>
+
+            <td>
+              {{ delivery.receivedDate | date:'dd MMM yyyy' }}
+            </td>
+
+            <td>
+              <span
+                class="condition"
+                [class]="delivery.condition.toLowerCase()">
+                {{ delivery.condition }}
+              </span>
+            </td>
+
+            <td>
+              {{ delivery.notes || '-' }}
+            </td>
+
+            <td>
+              {{ delivery.createdAt | date:'dd MMM yyyy' }}
+            </td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Api } from '../../core/services/api';
 
 @Component({
@@ -9,17 +9,19 @@ import { Api } from '../../core/services/api';
 })
 export class Dashboard implements OnInit {
 
-  purchaseRequests: any[] = [];
-  quotations: any[] = [];
-  purchaseOrders: any[] = [];
-  deliveries: any[] = [];
+  purchaseRequests = signal<any[]>([]);
+  quotations = signal<any[]>([]);
+  purchaseOrders = signal<any[]>([]);
+  deliveries = signal<any[]>([]);
 
   constructor(private api: Api) {}
 
   ngOnInit() {
+
     this.api.getPurchaseRequests().subscribe({
       next: (data: any) => {
-        this.purchaseRequests = data;
+        console.log('Purchase Requests DATA:', data);
+        this.purchaseRequests.set(data);
       },
       error: (error) => {
         console.error('Purchase Requests API Error:', error);
@@ -28,7 +30,8 @@ export class Dashboard implements OnInit {
 
     this.api.getQuotations().subscribe({
       next: (data: any) => {
-        this.quotations = data;
+        console.log('Quotations DATA:', data);
+        this.quotations.set(data);
       },
       error: (error) => {
         console.error('Quotations API Error:', error);
@@ -37,7 +40,8 @@ export class Dashboard implements OnInit {
 
     this.api.getPurchaseOrders().subscribe({
       next: (data: any) => {
-        this.purchaseOrders = data;
+        console.log('Purchase Orders DATA:', data);
+        this.purchaseOrders.set(data);
       },
       error: (error) => {
         console.error('Purchase Orders API Error:', error);
@@ -46,12 +50,13 @@ export class Dashboard implements OnInit {
 
     this.api.getDeliveries().subscribe({
       next: (data: any) => {
-        this.deliveries = data;
+        console.log('Deliveries DATA:', data);
+        this.deliveries.set(data);
       },
       error: (error) => {
         console.error('Deliveries API Error:', error);
       }
     });
-  }
 
+  }
 }

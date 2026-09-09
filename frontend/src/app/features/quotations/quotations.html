@@ -1,0 +1,71 @@
+<div class="quotations">
+
+  <div class="page-header">
+    <div>
+      <h1>Quotations</h1>
+      <p>Manage vendor quotations for approved purchase requests</p>
+    </div>
+
+    <button class="btn-primary">
+      + New Quotation
+    </button>
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Purchase Request</th>
+          <th>Vendor</th>
+          <th>Offered Price</th>
+          <th>Status</th>
+          <th>Submitted At</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (quotation of quotations(); track quotation.id) {
+          <tr>
+
+            <td>#{{ quotation.id }}</td>
+
+            <td>
+              <strong>
+                {{ quotation.purchaseRequest?.itemName }}
+              </strong>
+            </td>
+
+            <td>
+              {{ quotation.vendor?.name }}
+            </td>
+
+            <td>
+              Rp {{ quotation.offeredPrice | number }}
+            </td>
+
+            <td>
+              <span
+                class="status"
+                [class]="quotation.status.toLowerCase()">
+                {{ quotation.status }}
+              </span>
+            </td>
+
+            <td>
+              {{ quotation.submittedAt | date:'dd MMM yyyy' }}
+            </td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

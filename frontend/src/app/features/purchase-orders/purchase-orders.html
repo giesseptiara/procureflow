@@ -1,0 +1,74 @@
+<div class="purchase-orders">
+
+  <div class="page-header">
+    <div>
+      <h1>Purchase Orders</h1>
+      <p>Manage purchase orders and procurement fulfillment</p>
+    </div>
+
+    <button class="btn-primary">
+      + New Purchase Order
+    </button>
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PO Number</th>
+          <th>Vendor</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th>Expected Delivery</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (order of purchaseOrders(); track order.id) {
+          <tr>
+
+            <td>#{{ order.id }}</td>
+
+            <td>
+              <strong>{{ order.poNumber }}</strong>
+            </td>
+
+            <td>
+              {{ order.vendor?.name }}
+            </td>
+
+            <td>
+              Rp {{ order.totalAmount | number }}
+            </td>
+
+            <td>
+              <span
+                class="status"
+                [class]="order.status.toLowerCase()">
+                {{ order.status }}
+              </span>
+            </td>
+
+            <td>
+              {{ order.expectedDeliveryDate | date:'dd MMM yyyy' }}
+            </td>
+
+            <td>
+              {{ order.createdAt | date:'dd MMM yyyy' }}
+            </td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

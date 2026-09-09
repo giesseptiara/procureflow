@@ -1,1 +1,48 @@
-<router-outlet></router-outlet>
+<router-outlet></router-outlet><div class="app-layout">
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>ProcureFlow</h2>
+      <span>Procurement System</span>
+    </div>
+
+    <nav class="navigation">
+
+      <a routerLink="/" routerLinkActive="active">
+        Dashboard
+      </a>
+
+      <a routerLink="/purchase-requests" routerLinkActive="active">
+        Purchase Requests
+      </a>
+
+      <a routerLink="/quotations" routerLinkActive="active">
+        Quotations
+      </a>
+
+      <a routerLink="/purchase-orders" routerLinkActive="active">
+        Purchase Orders
+      </a>
+
+      <a routerLink="/deliveries" routerLinkActive="active">
+        Deliveries
+      </a>
+
+      <a routerLink="/vendors" routerLinkActive="active">
+        Vendors
+      </a>
+
+      <a routerLink="/departments" routerLinkActive="active">
+        Departments
+      </a>
+
+    </nav>
+
+  </aside>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

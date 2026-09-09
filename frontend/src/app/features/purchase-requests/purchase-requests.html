@@ -1,0 +1,195 @@
+<div class="purchase-requests">
+
+  <div class="page-header">
+    <div>
+      <h1>Purchase Requests</h1>
+      <p>Manage and review procurement requests</p>
+    </div>
+
+    <button class="btn-primary" (click)="openForm()">
+    + New Request
+    </button>
+  </div>
+
+  @if (showForm()) {
+  <div class="form-card">
+
+    <div class="form-header">
+      <div>
+        <h2>New Purchase Request</h2>
+        <p>Create a new procurement request</p>
+      </div>
+
+      <button class="btn-close" (click)="closeForm()">
+        ×
+      </button>
+    </div>
+
+    <form (ngSubmit)="createRequest()">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="department">Department</label>
+
+          <select
+            id="department"
+            name="department"
+            [(ngModel)]="formData.departmentId">
+
+            <option value="">Select department</option>
+
+            @for (department of departments(); track department.id) {
+                <option [value]="department.id">
+                {{ department.name }}
+                </option>
+            }
+            </select>
+        </div>
+
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+
+          <input
+            id="itemName"
+            name="itemName"
+            type="text"
+            placeholder="e.g. Laptop"
+            [(ngModel)]="formData.itemName">
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+
+          <input
+            id="quantity"
+            name="quantity"
+            type="number"
+            min="1"
+            placeholder="e.g. 5"
+            [(ngModel)]="formData.quantity">
+        </div>
+
+        <div class="form-group">
+          <label for="estimatedCost">Estimated Cost</label>
+
+          <input
+            id="estimatedCost"
+            name="estimatedCost"
+            type="number"
+            min="0"
+            placeholder="e.g. 50000000"
+            [(ngModel)]="formData.estimatedCost">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="reason">Reason</label>
+
+          <textarea
+            id="reason"
+            name="reason"
+            rows="4"
+            placeholder="Explain the reason for this purchase request"
+            [(ngModel)]="formData.reason"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="closeForm()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn-primary">
+          Create Request
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+}
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item</th>
+          <th>Department</th>
+          <th>Quantity</th>
+          <th>Estimated Cost</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (request of purchaseRequests(); track request.id) {
+          <tr>
+
+            <td>#{{ request.id }}</td>
+
+            <td>
+              <strong>{{ request.itemName }}</strong>
+            </td>
+
+            <td>
+              {{ request.department?.name }}
+            </td>
+
+            <td>
+              {{ request.quantity }}
+            </td>
+
+            <td>
+              Rp {{ request.estimatedCost | number }}
+            </td>
+
+            <td>
+              <span class="status" [class]="request.status.toLowerCase()">
+                {{ request.status }}
+              </span>
+            </td>
+
+            <td>
+              {{ request.createdAt | date:'dd MMM yyyy' }}
+            </td>
+
+            <td>
+  @if (request.status === 'PENDING') {
+    <button
+      class="btn-approve"
+      (click)="approveRequest(request.id)">
+      Approve
+    </button>
+
+    <button
+      class="btn-reject"
+      (click)="rejectRequest(request.id)">
+      Reject
+    </button>
+  } @else {
+    <span class="no-action">-</span>
+  }
+</td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

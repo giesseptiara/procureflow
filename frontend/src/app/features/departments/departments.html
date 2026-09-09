@@ -1,0 +1,47 @@
+<div class="departments">
+
+  <div class="page-header">
+    <div>
+      <h1>Departments</h1>
+      <p>Manage departments involved in procurement activities</p>
+    </div>
+
+    <button class="btn-primary">
+      + New Department
+    </button>
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Department Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (department of departments(); track department.id) {
+          <tr>
+
+            <td>
+              #{{ department.id }}
+            </td>
+
+            <td>
+              <strong>{{ department.name }}</strong>
+            </td>
+
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

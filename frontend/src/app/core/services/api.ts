@@ -18,6 +18,24 @@ export class Api {
     return this.http.get(`${this.baseUrl}/purchase-requests`);
   }
 
+  createPurchaseRequest(data: any) {
+    return this.http.post(`${this.baseUrl}/purchase-requests`, data);
+  }
+
+  approvePurchaseRequest(id: number, approved: boolean, rejectionReason?: string) {
+    return this.http.put(`${this.baseUrl}/purchase-requests/${id}/approval`, {
+      approved,
+      rejectionReason
+    });
+  }
+
+  rejectPurchaseRequest(id: number, rejectionReason: string) {
+    return this.http.put(`${this.baseUrl}/purchase-requests/${id}/approval`, {
+      approved: false,
+      rejectionReason
+    });
+  }
+
   getQuotations() {
     return this.http.get(`${this.baseUrl}/quotations`);
   }
@@ -28,6 +46,10 @@ export class Api {
 
   getDeliveries() {
     return this.http.get(`${this.baseUrl}/deliveries`);
+  }
+
+  getVendors() {
+    return this.http.get(`${this.baseUrl}/vendors`);
   }
 
 }
