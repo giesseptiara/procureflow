@@ -11,6 +11,17 @@ import { Api } from '../../core/services/api';
 export class Deliveries implements OnInit {
 
   deliveries = signal<any[]>([]);
+  purchaseOrders = signal<any[]>([]);
+
+  showForm = signal(false);
+
+  openForm() {
+    this.showForm.set(true);
+  }
+
+  closeForm() {
+    this.showForm.set(false);
+  }
 
   constructor(private api: Api) {}
 
@@ -24,5 +35,15 @@ export class Deliveries implements OnInit {
         console.error('Deliveries Page API Error:', error);
       }
     });
+
+    this.api.getPurchaseOrders().subscribe({
+  next: (data: any) => {
+    console.log('Purchase Orders for Delivery:', data);
+    this.purchaseOrders.set(data);
+  },
+  error: (error) => {
+    console.error('Purchase Orders API Error:', error);
+  }
+});
   }
 }

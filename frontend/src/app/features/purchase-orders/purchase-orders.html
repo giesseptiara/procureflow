@@ -6,10 +6,80 @@
       <p>Manage purchase orders and procurement fulfillment</p>
     </div>
 
-    <button class="btn-primary">
-      + New Purchase Order
+    <button class="btn-primary" (click)="openForm()">
+    + New Purchase Order
     </button>
   </div>
+
+  @if (showForm()) {
+  <div class="form-card">
+
+    <div class="form-header">
+      <div>
+        <h2>New Purchase Order</h2>
+        <p>Create a purchase order from a selected quotation</p>
+      </div>
+
+      <button class="btn-close" (click)="closeForm()">
+        ×
+      </button>
+    </div>
+
+    <form (ngSubmit)="createPurchaseOrder()">
+
+      <div class="form-grid">
+
+        <div class="form-group full-width">
+          <label for="quotation">
+            Selected Quotation
+          </label>
+
+          <select
+            id="quotation"
+            name="quotation"
+            [(ngModel)]="formData.quotationId">
+
+            <option value="">
+              Select quotation
+            </option>
+
+            @for (quotation of quotations(); track quotation.id) {
+              @if (quotation.status === 'SELECTED') {
+                <option [value]="quotation.id">
+                  #{{ quotation.id }} -
+                  {{ quotation.purchaseRequest?.itemName }} -
+                  {{ quotation.vendor?.name }} -
+                  Rp {{ quotation.offeredPrice | number }}
+                </option>
+              }
+            }
+
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="closeForm()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn-primary">
+          Create Purchase Order
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+}
 
   <div class="table-card">
 
@@ -24,6 +94,7 @@
           <th>Status</th>
           <th>Expected Delivery</th>
           <th>Created At</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -61,6 +132,18 @@
             <td>
               {{ order.createdAt | date:'dd MMM yyyy' }}
             </td>
+
+            <td>
+  @if (order.status === 'DRAFT') {
+    <button
+      class="btn-issue"
+      (click)="issuePurchaseOrder(order.id)">
+      Issue
+    </button>
+  } @else {
+    <span class="no-action">-</span>
+  }
+</td>
 
           </tr>
         }

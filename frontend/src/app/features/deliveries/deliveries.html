@@ -6,10 +6,136 @@
       <p>Track received items and purchase order deliveries</p>
     </div>
 
-    <button class="btn-primary">
-      + Record Delivery
+    <button class="btn-primary" (click)="openForm()">
+    + Record Delivery
     </button>
   </div>
+
+  @if (showForm()) {
+  <div class="form-card">
+
+    <div class="form-header">
+      <div>
+        <h2>Record Delivery</h2>
+        <p>Record items received from a purchase order</p>
+      </div>
+
+      <button class="btn-close" (click)="closeForm()">
+        ×
+      </button>
+    </div>
+
+    <form>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="purchaseOrder">
+            Purchase Order
+          </label>
+
+          <select
+            id="purchaseOrder"
+            name="purchaseOrder">
+
+            <option value="">
+              Select purchase order
+            </option>
+
+            @for (order of purchaseOrders(); track order.id) {
+              @if (
+                order.status === 'ISSUED' ||
+                order.status === 'PARTIALLY_RECEIVED'
+              ) {
+                <option [value]="order.id">
+                  {{ order.poNumber }} -
+                  {{ order.vendor?.name }}
+                </option>
+              }
+            }
+
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="receivedQuantity">
+            Received Quantity
+          </label>
+
+          <input
+            id="receivedQuantity"
+            name="receivedQuantity"
+            type="number"
+            min="1"
+            placeholder="e.g. 3">
+        </div>
+
+        <div class="form-group">
+          <label for="receivedDate">
+            Received Date
+          </label>
+
+          <input
+            id="receivedDate"
+            name="receivedDate"
+            type="date">
+        </div>
+
+        <div class="form-group">
+          <label for="condition">
+            Condition
+          </label>
+
+          <select
+            id="condition"
+            name="condition">
+
+            <option value="">
+              Select condition
+            </option>
+
+            <option value="GOOD">Good</option>
+            <option value="DAMAGED">Damaged</option>
+            <option value="PARTIAL">Partial</option>
+
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="notes">
+            Notes
+          </label>
+
+          <textarea
+            id="notes"
+            name="notes"
+            rows="4"
+            placeholder="Add delivery notes"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="closeForm()">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn-primary">
+          Record Delivery
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+}
 
   <div class="table-card">
 

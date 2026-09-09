@@ -34,6 +34,58 @@ export class Quotations implements OnInit {
     this.showForm.set(false);
   }
 
+  createQuotation() {
+  this.api.createQuotation({
+    purchaseRequestId: Number(this.formData.purchaseRequestId),
+    vendorId: Number(this.formData.vendorId),
+    offeredPrice: Number(this.formData.offeredPrice),
+    notes: this.formData.notes
+  }).subscribe({
+    next: (data) => {
+      console.log('Quotation Created:', data);
+
+      this.closeForm();
+
+      this.formData = {
+        purchaseRequestId: '',
+        vendorId: '',
+        offeredPrice: null,
+        notes: ''
+      };
+
+      this.api.getQuotations().subscribe({
+        next: (data: any) => {
+          this.quotations.set(data);
+        }
+      });
+    },
+
+    error: (error) => {
+      console.error('Create Quotation Error:', error);
+      alert(error.error?.message || 'Failed to create quotation');
+    }
+  });
+}
+
+selectQuotation(id: number) {
+  this.api.selectQuotation(id).subscribe({
+    next: (data) => {
+      console.log('Quotation Selected:', data);
+
+      this.api.getQuotations().subscribe({
+        next: (data: any) => {
+          this.quotations.set(data);
+        }
+      });
+    },
+
+    error: (error) => {
+      console.error('Select Quotation Error:', error);
+      alert(error.error?.message || 'Failed to select quotation');
+    }
+  });
+}
+
   ngOnInit() {
 
     this.api.getQuotations().subscribe({

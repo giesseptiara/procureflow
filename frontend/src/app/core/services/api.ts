@@ -40,8 +40,30 @@ export class Api {
     return this.http.get(`${this.baseUrl}/quotations`);
   }
 
+  createQuotation(data: any) {
+    return this.http.post(`${this.baseUrl}/quotations`, data);
+  }
+
+  selectQuotation(id: number) {
+    return this.http.put(`${this.baseUrl}/quotations/${id}/select`, {});
+  }
+
   getPurchaseOrders() {
     return this.http.get(`${this.baseUrl}/purchase-orders`);
+  }
+
+  createPurchaseOrder(quotationId: number) {
+    return this.http.post(
+      `${this.baseUrl}/purchase-orders?quotationId=${quotationId}`,
+      {}
+    );
+  }
+
+  issuePurchaseOrder(id: number) {
+    return this.http.put(
+      `${this.baseUrl}/purchase-orders/${id}/issue`,
+      {}
+    );
   }
 
   getDeliveries() {
