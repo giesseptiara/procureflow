@@ -19,8 +19,6 @@ export class App implements OnInit {
   ngOnInit() {
     this.api.getDepartments().subscribe({
       next: (data: any) => {
-        console.log('Departments:', data);
-        console.log('First department:', data[0]);
         this.departments = data;
       },
       error: (error) => {
