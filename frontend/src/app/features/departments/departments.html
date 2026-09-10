@@ -6,10 +6,61 @@
       <p>Manage departments involved in procurement activities</p>
     </div>
 
-    <button class="btn-primary">
+    <button class="btn-primary" (click)="openForm()">
       + New Department
     </button>
   </div>
+
+  @if (showForm()) {
+    <div class="form-card">
+
+      <div class="form-header">
+        <div>
+          <h2>New Department</h2>
+          <p>Add a new department to the procurement system</p>
+        </div>
+
+        <button class="btn-close" (click)="closeForm()">
+          ×
+        </button>
+      </div>
+
+      <form (ngSubmit)="createDepartment()">
+
+        <div class="form-group">
+          <label for="name">
+            Department Name
+          </label>
+
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="e.g. Operations"
+            [(ngModel)]="formData.name">
+        </div>
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="closeForm()">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn-primary">
+            Create Department
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  }
 
   <div class="table-card">
 

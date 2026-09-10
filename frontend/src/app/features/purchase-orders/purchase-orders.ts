@@ -82,6 +82,28 @@ issuePurchaseOrder(id: number) {
   });
 }
 
+completePurchaseOrder(id: number) {
+  this.api.completePurchaseOrder(id).subscribe({
+    next: (data) => {
+      console.log('Purchase Order Completed:', data);
+
+      this.api.getPurchaseOrders().subscribe({
+        next: (data: any) => {
+          this.purchaseOrders.set(data);
+        }
+      });
+    },
+
+    error: (error) => {
+      console.error('Complete Purchase Order Error:', error);
+      alert(
+        error.error?.message ||
+        'Failed to complete purchase order'
+      );
+    }
+  });
+}
+
   ngOnInit() {
 
     this.api.getPurchaseOrders().subscribe({

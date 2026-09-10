@@ -134,16 +134,18 @@
             </td>
 
             <td>
-  @if (order.status === 'DRAFT') {
-    <button
-      class="btn-issue"
-      (click)="issuePurchaseOrder(order.id)">
-      Issue
-    </button>
-  } @else {
-    <span class="no-action">-</span>
-  }
-</td>
+              @if (order.status === 'DRAFT') {
+                <button class="btn-issue" (click)="issuePurchaseOrder(order.id)">
+                  Issue
+                </button>
+              } @else if (order.status === 'RECEIVED') {
+                <button class="btn-complete" (click)="completePurchaseOrder(order.id)">
+                  Complete
+                </button>
+              } @else {
+                <span class="no-action">-</span>
+              }
+            </td>
 
           </tr>
         }

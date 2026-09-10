@@ -14,6 +14,10 @@ export class Api {
     return this.http.get(`${this.baseUrl}/departments`);
   }
 
+  createDepartment(data: any) {
+    return this.http.post(`${this.baseUrl}/departments`, data);
+  }
+
   getPurchaseRequests() {
     return this.http.get(`${this.baseUrl}/purchase-requests`);
   }
@@ -66,12 +70,30 @@ export class Api {
     );
   }
 
+  completePurchaseOrder(id: number) {
+    return this.http.put(
+      `${this.baseUrl}/purchase-orders/${id}/complete`,
+      {}
+    );
+  }
+
   getDeliveries() {
     return this.http.get(`${this.baseUrl}/deliveries`);
   }
 
+  createDelivery(data: any) {
+    return this.http.post(
+      `${this.baseUrl}/deliveries`,
+      data
+    );
+  }
+
   getVendors() {
     return this.http.get(`${this.baseUrl}/vendors`);
+  }
+
+  createVendor(data: any) {
+    return this.http.post(`${this.baseUrl}/vendors`, data);
   }
 
 }
