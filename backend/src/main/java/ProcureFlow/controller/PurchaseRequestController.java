@@ -6,6 +6,7 @@ import ProcureFlow.entity.PurchaseRequest;
 import ProcureFlow.service.PurchaseRequestService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class PurchaseRequestController {
         return purchaseRequestService.createPurchaseRequest(request);
     }
 
+    @PreAuthorize("hasRole('APPROVER')")
     @PutMapping("/{id}/approval")
     public PurchaseRequest processApproval(
             @PathVariable Long id,
