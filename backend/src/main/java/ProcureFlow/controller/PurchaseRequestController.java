@@ -27,6 +27,7 @@ public class PurchaseRequestController {
         return purchaseRequestService.getAllPurchaseRequests();
     }
 
+    @PreAuthorize("hasAnyRole('REQUESTER', 'ADMIN')")
     @PostMapping
     public PurchaseRequest createPurchaseRequest(
             @Valid @RequestBody CreatePurchaseRequest request
@@ -34,7 +35,7 @@ public class PurchaseRequestController {
         return purchaseRequestService.createPurchaseRequest(request);
     }
 
-    @PreAuthorize("hasRole('APPROVER')")
+    @PreAuthorize("hasAnyRole('APPROVER', 'ADMIN')")
     @PutMapping("/{id}/approval")
     public PurchaseRequest processApproval(
             @PathVariable Long id,

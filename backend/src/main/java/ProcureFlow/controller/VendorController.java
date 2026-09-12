@@ -4,6 +4,7 @@ import ProcureFlow.dto.CreateVendorRequest;
 import ProcureFlow.entity.Vendor;
 import ProcureFlow.service.VendorService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class VendorController {
         return vendorService.getVendorById(id);
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PostMapping
     public Vendor createVendor(
             @Valid @RequestBody CreateVendorRequest request
@@ -37,6 +39,7 @@ public class VendorController {
         return vendorService.createVendor(request);
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PutMapping("/{id}")
     public Vendor updateVendor(
             @PathVariable Long id,
@@ -45,6 +48,7 @@ public class VendorController {
         return vendorService.updateVendor(id, request);
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PatchMapping("/{id}/status")
     public Vendor setVendorActive(
             @PathVariable Long id,
