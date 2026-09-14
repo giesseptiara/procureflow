@@ -5,6 +5,7 @@ import ProcureFlow.entity.Quotation;
 import ProcureFlow.service.QuotationService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class QuotationController {
         );
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PostMapping
     public Quotation createQuotation(
             @Valid @RequestBody CreateQuotationRequest request
@@ -39,6 +41,7 @@ public class QuotationController {
         return quotationService.createQuotation(request);
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PutMapping("/{id}/select")
     public Quotation selectQuotation(
             @PathVariable Long id

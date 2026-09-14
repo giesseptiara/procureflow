@@ -3,6 +3,7 @@ package ProcureFlow.controller;
 import ProcureFlow.entity.PurchaseOrder;
 import ProcureFlow.service.PurchaseOrderService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class PurchaseOrderController {
         return purchaseOrderService.getAllPurchaseOrders();
     }
 
+
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PostMapping
     public PurchaseOrder createPurchaseOrder(
             @RequestParam Long quotationId
@@ -28,6 +31,7 @@ public class PurchaseOrderController {
         return purchaseOrderService.createPurchaseOrder(quotationId);
     }
 
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PutMapping("/{id}/issue")
     public PurchaseOrder issuePurchaseOrder(
             @PathVariable Long id
@@ -35,6 +39,8 @@ public class PurchaseOrderController {
         return purchaseOrderService.issuePurchaseOrder(id);
     }
 
+
+    @PreAuthorize("hasAnyRole('PROCUREMENT', 'ADMIN')")
     @PutMapping("/{id}/complete")
     public PurchaseOrder completePurchaseOrder(
             @PathVariable Long id
