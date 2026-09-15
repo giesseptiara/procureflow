@@ -7,6 +7,7 @@ import ProcureFlow.service.DeliveryService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class DeliveryController {
         return deliveryService.getDeliveriesByPurchaseOrder(purchaseOrderId);
     }
 
+    @PreAuthorize("hasAnyRole('WAREHOUSE', 'ADMIN')")
     @PostMapping
     public Delivery createDelivery(
             @Valid @RequestBody CreateDeliveryRequest request
