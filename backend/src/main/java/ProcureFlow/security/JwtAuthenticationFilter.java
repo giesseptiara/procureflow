@@ -31,8 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
-
-        System.out.println("Authorization Header: " + authHeader);
         
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -50,8 +48,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = jwtService.extractUsername(token);
         String role = jwtService.extractRole(token);
 
-        System.out.println("JWT Username: " + username);
-        System.out.println("JWT Role: " + role);
 
         var authority = new SimpleGrantedAuthority("ROLE_" + role);
 

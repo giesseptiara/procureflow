@@ -12,15 +12,21 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY =
-            "ProcureFlowDevelopmentSecretKey2026VeryLong";
+    private final String secretKey;
 
+    public JwtService() {
+        this.secretKey = System.getenv("JWT_SECRET");
+
+        if (this.secretKey == null || this.secretKey.isBlank()) {
+            throw new IllegalStateException("JWT_SECRET environment variable is not configured");
+        }
+    }
     private static final long EXPIRATION_TIME =
             1000 * 60 * 60 * 8; // 8 jam
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(
-                SECRET_KEY.getBytes(StandardCharsets.UTF_8)
+                secretKey.getBytes(StandardCharsets.UTF_8)
         );
     }
 
