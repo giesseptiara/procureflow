@@ -1,48 +1,55 @@
-<router-outlet></router-outlet><div class="app-layout">
+@if (showLayout) {
 
-  <aside class="sidebar">
+  <div class="app-layout">
 
-    <div class="logo">
-      <h2>ProcureFlow</h2>
-      <span>Procurement System</span>
-    </div>
 
-    <nav class="navigation">
+<aside class="sidebar">
 
-      <a routerLink="/" routerLinkActive="active">
-        Dashboard
-      </a>
+  <div class="logo">
+    <h2>ProcureFlow</h2>
+    <span>Procurement System</span>
+  </div>
 
-      <a routerLink="/purchase-requests" routerLinkActive="active">
-        Purchase Requests
-      </a>
+  <nav class="navigation">
 
-      <a routerLink="/quotations" routerLinkActive="active">
-        Quotations
-      </a>
+    <a routerLink="/" routerLinkActive="active">
+      Dashboard
+    </a>
 
-      <a routerLink="/purchase-orders" routerLinkActive="active">
-        Purchase Orders
-      </a>
+    <a routerLink="/purchase-requests" routerLinkActive="active">
+      Purchase Requests
+    </a>
 
-      <a routerLink="/deliveries" routerLinkActive="active">
-        Deliveries
-      </a>
+    <a routerLink="/quotations" routerLinkActive="active">
+      Quotations
+    </a>
 
-      <a routerLink="/vendors" routerLinkActive="active">
-        Vendors
-      </a>
+    <a routerLink="/purchase-orders" routerLinkActive="active">
+      Purchase Orders
+    </a>
 
-      <a routerLink="/departments" routerLinkActive="active">
-        Departments
-      </a>
+    <a routerLink="/deliveries" routerLinkActive="active">
+      Deliveries
+    </a>
 
-    </nav>
+    <a routerLink="/vendors" routerLinkActive="active">
+      Vendors
+    </a>
 
-  </aside>
+    <a routerLink="/departments" routerLinkActive="active">
+      Departments
+    </a>
 
-  <main class="main-content">
-    <router-outlet></router-outlet>
-  </main>
+  </nav>
 
-</div>
+</aside>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

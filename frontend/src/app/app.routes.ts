@@ -6,11 +6,18 @@ import { PurchaseOrders } from './features/purchase-orders/purchase-orders';
 import { Deliveries } from './features/deliveries/deliveries';
 import { Vendors } from './features/vendors/vendors';
 import { Departments } from './features/departments/departments';
+import { Login } from './pages/login/login';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: Login
+  },
+  {
     path: '',
-    component: Dashboard
+    component: Dashboard,
+    canActivate: [authGuard]
   },
   {
     path: 'purchase-requests',
