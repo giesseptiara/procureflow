@@ -8,6 +8,7 @@ import { Vendors } from './features/vendors/vendors';
 import { Departments } from './features/departments/departments';
 import { Login } from './pages/login/login';
 import { authGuard } from './guards/auth-guard';
+import { roleGuard } from './guards/role-guard';
 
 export const routes: Routes = [
   {
@@ -21,26 +22,48 @@ export const routes: Routes = [
   },
   {
     path: 'purchase-requests',
-    component: PurchaseRequests
+    component: PurchaseRequests,
+    canActivate: [
+      authGuard,
+      roleGuard(['REQUESTER', 'APPROVER', 'ADMIN'])
+    ]
   },
   {
     path: 'quotations',
-    component: Quotations
+    component: Quotations,
+    canActivate: [
+      authGuard,
+      roleGuard(['PROCUREMENT', 'ADMIN'])
+    ]
   },
   {
     path: 'purchase-orders',
-    component: PurchaseOrders
+    component: PurchaseOrders,
+    canActivate: [
+      authGuard,
+      roleGuard(['PROCUREMENT', 'ADMIN'])
+    ]
   },
   {
     path: 'deliveries',
-    component: Deliveries
+    component: Deliveries,
+    canActivate: [
+      authGuard,
+      roleGuard(['WAREHOUSE', 'ADMIN'])
+    ]
   },
   {
     path: 'vendors',
-    component: Vendors
+    component: Vendors,
+    canActivate: [
+      authGuard,
+      roleGuard(['PROCUREMENT', 'ADMIN'])
+    ]
   },
   {
     path: 'departments',
     component: Departments
   }
+
+  
 ];

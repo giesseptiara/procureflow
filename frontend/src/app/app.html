@@ -10,37 +10,62 @@
     <span>Procurement System</span>
   </div>
 
+  <div class="user-info">
+  <strong>{{ auth.getUsername() }}</strong>
+  <span>{{ auth.getRole() }}</span>
+</div>
+
   <nav class="navigation">
 
     <a routerLink="/" routerLinkActive="active">
       Dashboard
     </a>
 
-    <a routerLink="/purchase-requests" routerLinkActive="active">
-      Purchase Requests
-    </a>
+    @if (
+      auth.hasRole('REQUESTER') ||
+      auth.hasRole('APPROVER') ||
+      auth.hasRole('ADMIN')
+    ) {
+      <a routerLink="/purchase-requests" routerLinkActive="active">
+        Purchase Requests
+      </a>
+    }
 
-    <a routerLink="/quotations" routerLinkActive="active">
-      Quotations
-    </a>
+    @if (auth.hasRole('PROCUREMENT') || auth.hasRole('ADMIN')) {
+      <a routerLink="/quotations" routerLinkActive="active">
+        Quotations
+      </a>
+    }
 
-    <a routerLink="/purchase-orders" routerLinkActive="active">
-      Purchase Orders
-    </a>
+    @if (auth.hasRole('PROCUREMENT') || auth.hasRole('ADMIN')) {
+      <a routerLink="/purchase-orders" routerLinkActive="active">
+        Purchase Orders
+      </a>
+    }
 
-    <a routerLink="/deliveries" routerLinkActive="active">
-      Deliveries
-    </a>
+    @if (auth.hasRole('WAREHOUSE') || auth.hasRole('ADMIN')) {
+      <a routerLink="/deliveries" routerLinkActive="active">
+        Deliveries
+      </a>
+    }
 
-    <a routerLink="/vendors" routerLinkActive="active">
-      Vendors
-    </a>
+    @if (auth.hasRole('PROCUREMENT') || auth.hasRole('ADMIN')) {
+      <a routerLink="/vendors" routerLinkActive="active">
+        Vendors
+      </a>
+    }
 
     <a routerLink="/departments" routerLinkActive="active">
       Departments
     </a>
 
   </nav>
+
+  <div class="sidebar-footer">
+  <button type="button" (click)="logout()">
+    Logout
+  </button>
+</div>
 
 </aside>
 

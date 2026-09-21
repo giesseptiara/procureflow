@@ -27,6 +27,10 @@ export class Auth {
     return localStorage.getItem(this.roleKey);
   }
 
+  hasRole(role: string): boolean {
+    return this.getRole() === role;
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }

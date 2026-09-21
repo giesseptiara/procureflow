@@ -6,12 +6,14 @@
       <p>Manage and review procurement requests</p>
     </div>
 
-    <button class="btn-primary" (click)="openForm()">
+    @if (isRequester()) {
+  <button class="btn-primary" (click)="openForm()">
     + New Request
-    </button>
+  </button>
+}
   </div>
-
-  @if (showForm()) {
+  
+@if (showForm() && isRequester()) {
   <div class="form-card">
 
     <div class="form-header">
