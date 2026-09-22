@@ -168,21 +168,21 @@
             </td>
 
             <td>
-  @if (request.status === 'PENDING') {
-    <button
-      class="btn-approve"
-      (click)="approveRequest(request.id)">
-      Approve
-    </button>
+ @if (request.status === 'PENDING' && isApprover()) {
+  <button
+    class="btn-approve"
+    (click)="approveRequest(request.id)">
+    Approve
+  </button>
 
-    <button
-      class="btn-reject"
-      (click)="rejectRequest(request.id)">
-      Reject
-    </button>
-  } @else {
-    <span class="no-action">-</span>
-  }
+  <button
+    class="btn-reject"
+    (click)="rejectRequest(request.id)">
+    Reject
+  </button>
+} @else {
+  <span class="no-action">-</span>
+}
 </td>
 
           </tr>
