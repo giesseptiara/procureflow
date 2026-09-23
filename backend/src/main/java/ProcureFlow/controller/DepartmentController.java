@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 @RestController
 @RequestMapping("/api/departments")
 public class DepartmentController {
@@ -32,6 +34,7 @@ public class DepartmentController {
         return departmentService.getAllDepartments();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Department createDepartment(
             @Valid @RequestBody CreateDepartmentRequest request) {
@@ -39,6 +42,7 @@ public class DepartmentController {
         return departmentService.createDepartment(request);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Department updateDepartment(
             @PathVariable Long id,
@@ -47,6 +51,7 @@ public class DepartmentController {
         return departmentService.updateDepartment(id, request);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteDepartment(@PathVariable Long id) {
 
