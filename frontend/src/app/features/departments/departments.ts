@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Api } from '../../core/services/api';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-departments',
@@ -18,7 +19,14 @@ export class Departments implements OnInit {
     name: ''
   };
 
-  constructor(private api: Api) {}
+  constructor(
+    private api: Api,
+    public auth: Auth
+  ) {}
+
+  isAdmin(): boolean {
+    return this.auth.hasRole('ADMIN');
+  }
 
   openForm() {
     this.showForm.set(true);

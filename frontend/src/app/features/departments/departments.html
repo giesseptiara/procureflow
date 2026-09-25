@@ -6,12 +6,14 @@
       <p>Manage departments involved in procurement activities</p>
     </div>
 
-    <button class="btn-primary" (click)="openForm()">
-      + New Department
-    </button>
+    @if (isAdmin()) {
+      <button class="btn-primary" (click)="openForm()">
+        + New Department
+      </button>
+    }
   </div>
 
-  @if (showForm()) {
+  @if (showForm() && isAdmin()) {
     <div class="form-card">
 
       <div class="form-header">
